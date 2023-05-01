@@ -25,12 +25,14 @@ int playerLocationX = playerStartX;
 const int goalLocationX = 2;
 const int goalLocationY = 2;
 const char goalIcon = '%';
+int numberOfMoves = 0;
 
 bool isGameOver() {
     return (playerLocationX == goalLocationX && playerLocationY == goalLocationY);
 }
 
 void movePlayer(int y, int x) {
+    numberOfMoves += 1;
     maze[playerLocationY][playerLocationX] = '.';
     maze[y][x] = playerIcon;
     playerLocationY = y;
@@ -69,9 +71,7 @@ void receivePlayerInput() {
 }
 
 void printMaze() {
-    maze[playerStartY][playerStartX] = playerIcon;
     maze[goalLocationY][goalLocationX] = goalIcon;
-
     for (int y = 0; y < 10; y++) {
         for (int x = 0; x < 10; x++) {
             printw("%c", maze[y][x]);
@@ -81,20 +81,24 @@ void printMaze() {
     refresh();
 }
 
+void printResultScreen() {
+    std::cout << "=== GAME OVER ===" << "\n";
+    std::cout << "number of moves: " << numberOfMoves << "\n";
+}
+
 int main()
 {
     initscr();
     cbreak();
     noecho();
-
+    maze[playerStartY][playerStartX] = playerIcon;
     while (!isGameOver()) {
         printMaze();
         receivePlayerInput();
         clear();
     }
-
+    printResultScreen();
     clear();
-    std::cout << "=== GAME OVER ===" << "\n";
 
     return 0;
 }
