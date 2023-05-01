@@ -1,19 +1,19 @@
 #include <iostream>
 #include <ncurses.h>
 
-// const int ROWS = 10;
-// const int COLS = 10;
+const int NUM_ROWS = 10;
+const int NUM_COLUMNS = 10;
 
-char maze[10][10] = {
+char maze[NUM_ROWS][NUM_COLUMNS] = {
     {'.','.','.','.','.','.','.','.','.','.'},
     {'.','.','.','.','.','.','.','.','.','.'},
     {'.','.','.','.','.','.','.','.','.','.'},
-    {'.','.','.','.','.','.','.','.','.','.'},
-    {'.','.','.','.','.','.','.','.','.','.'},
-    {'.','.','.','.','.','.','.','.','.','.'},    // @ = player
-    {'.','.','.','.','.','.','.','.','.','.'},    // % = goal
-    {'.','.','.','.','.','.','.','.','.','.'},
-    {'.','.','.','.','.','.','.','.','.','.'},
+    {'.','.','.','.','.','.','.','.','.','*'},
+    {'.','.','#','.','.','.','.','.','.','.'},
+    {'.','.','#','.','.','.','.','.','.','.'},    // @ = player
+    {'.','.','#','.','.','.','.','.','.','*'},    // % = goal
+    {'.','.','#','.','.','.','.','.','.','.'},
+    {'.','.','#','.','.','.','.','.','.','.'},
     {'.','.','.','.','.','.','.','.','.','.'},
 };
 
@@ -26,17 +26,42 @@ const int goalLocationX = 2;
 const int goalLocationY = 2;
 const char goalIcon = '%';
 int numberOfMoves = 0;
+const char point = '*';
+int points = 0;
 
 bool isGameOver() {
-    return (playerLocationX == goalLocationX && playerLocationY == goalLocationY);
+    return playerLocationX == goalLocationX && playerLocationY == goalLocationY;
 }
 
 void movePlayer(int y, int x) {
-    numberOfMoves += 1;
-    maze[playerLocationY][playerLocationX] = '.';
-    maze[y][x] = playerIcon;
-    playerLocationY = y;
-    playerLocationX = x;
+    if (maze[y][x] == '*') points += 1;
+    if (maze[y][x] != '#') {
+        numberOfMoves += 1;
+        maze[playerLocationY][playerLocationX] = '.';
+        maze[y][x] = playerIcon;
+        playerLocationY = y;
+        playerLocationX = x;
+    }
+}
+
+void setUpMaze() {
+    maze[playerStartY][playerStartX] = playerIcon;
+    maze[goalLocationY][goalLocationX] = goalIcon;
+}
+
+void printMaze() {
+    for (int y = 0; y < 10; y++) {
+        for (int x = 0; x < 10; x++) {
+            printw("%c", maze[y][x]);
+        }
+        printw("\n");
+    }
+
+    printw("@ = player\n");
+    printw("% = goal\n");
+    printw("points: %d", points);
+
+    refresh();
 }
 
 void receivePlayerInput() {
@@ -70,20 +95,10 @@ void receivePlayerInput() {
     }
 }
 
-void printMaze() {
-    maze[goalLocationY][goalLocationX] = goalIcon;
-    for (int y = 0; y < 10; y++) {
-        for (int x = 0; x < 10; x++) {
-            printw("%c", maze[y][x]);
-        }
-        printw("\n");
-    }
-    refresh();
-}
-
 void printResultScreen() {
     std::cout << "=== GAME OVER ===" << "\n";
     std::cout << "number of moves: " << numberOfMoves << "\n";
+    std::cout << "you got " << points << " points" << "\n";
 }
 
 int main()
@@ -91,12 +106,15 @@ int main()
     initscr();
     cbreak();
     noecho();
-    maze[playerStartY][playerStartX] = playerIcon;
+
+    setUpMaze();
+
     while (!isGameOver()) {
         printMaze();
         receivePlayerInput();
         clear();
     }
+
     printResultScreen();
     clear();
 
