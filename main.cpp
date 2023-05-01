@@ -17,16 +17,16 @@ char maze[NUM_ROWS][NUM_COLUMNS] = {
     {'.','.','.','.','.','.','.','.','.','.'},
 };
 
-const char playerIcon = '@';
 const int playerStartY = 5;
 const int playerStartX = 5;
-int playerLocationY = playerStartY;
-int playerLocationX = playerStartX;
 const int goalLocationX = 2;
 const int goalLocationY = 2;
+const char playerIcon = '@';
 const char goalIcon = '%';
-int numberOfMoves = 0;
 const char point = '*';
+int playerLocationY = playerStartY;
+int playerLocationX = playerStartX;
+int numberOfMoves = 0;
 int points = 0;
 
 bool isGameOver() {
