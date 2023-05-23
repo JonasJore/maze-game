@@ -55,7 +55,7 @@ void printMaze() {
     }
 
     printw("@ = player\n");
-    printw("% = goal\n");
+    printw("%% = goal\n");
     printw("points: %d", player.points);
 }
 

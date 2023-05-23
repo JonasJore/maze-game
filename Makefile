@@ -4,6 +4,7 @@ LDFLAGS = -lncurses
 
 TARGET = target
 SRCDIR = src
+HEADERDIR = headers
 BUILDDIR = build
 
 SOURCES = $(wildcard $(SRCDIR)/*.cpp)
@@ -14,14 +15,14 @@ OBJECTS = $(patsubst $(SRCDIR)/%.cpp,$(BUILDDIR)/%.o,$(SOURCES))
 all: $(TARGET)
 
 $(TARGET): $(OBJECTS)
-	$(CC) $^ -o $@ $(LDFLAGS)
+    $(CC) $^ -o $@ $(LDFLAGS)
 
 $(BUILDDIR)/%.o: $(SRCDIR)/%.cpp
-	@mkdir -p $(BUILDDIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+    @mkdir -p $(BUILDDIR)
+    $(CC) $(CFLAGS) -I $(HEADERDIR) -c $< -o $@
 
 clean:
-	rm -rf $(BUILDDIR) $(TARGET)
+    rm -rf $(BUILDDIR) $(TARGET)
 
 run:
-	./target
+    ./target
