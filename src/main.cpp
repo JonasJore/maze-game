@@ -1,6 +1,6 @@
 #include <iostream>
 #include <ncurses.h>
-#include "Player.h"
+#include "Player.hpp"
 
 const int MAZE_NUM_ROWS = 10;
 const int MAZE_NUM_COLUMNS = 10;
@@ -96,8 +96,7 @@ void printResultScreen() {
     printw("you got %d points\n", player.points);
 }
 
-int main()
-{
+void game() {
     initscr();
     cbreak();
     noecho();
@@ -121,6 +120,10 @@ int main()
             break;
         }
     }
+}
 
+int main()
+{
+    game();
     return 0;
 }
