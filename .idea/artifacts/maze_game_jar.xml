@@ -1,12 +1,14 @@
 <component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="maze-game:jar">
+  <artifact type="jar" name="maze-game:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/maze_game_jar</output-path>
-    <root id="archive" name="maze-game.jar">
-      <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+    <root id="archive" name="maze-game_jar.jar">
+      <element id="archive" name="maze-game.jar">
+        <element id="directory" name="META-INF">
+          <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+        </element>
+        <element id="module-output" name="maze-game" />
       </element>
-      <element id="module-output" name="maze-game" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/jline/jline/3.24.1/jline-3.24.1.jar" path-in-jar="/" />
+      <element id="library" level="project" name="Maven: org.jline:jline:3.24.1" />
     </root>
   </artifact>
 </component>
