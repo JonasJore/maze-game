@@ -1,5 +1,6 @@
 package no.jore;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class MazeGame {
@@ -17,10 +18,10 @@ public class MazeGame {
       {'.', '.', '.', '.', '.', '.', '.', '.', '.', '.'},
       {'.', '.', '.', '.', '.', '.', '.', '.', '.', '.'},
       {'.', '.', '.', '.', '.', '.', '.', '.', '.', '.'},
-      {'.', '.', '.', '#', '.', '.', '.', '.', '.', '*'},
+      {'.', '.', '.', '#', '.', '.', '.', '.', '.', '.'},
       {'.', '.', '.', '#', '.', '.', '.', '.', '.', '.'}, // @ = player
       {'.', '.', '.', '#', '.', '.', '.', '.', '.', '.'}, // % = goal
-      {'.', '#', '.', '.', '.', '.', '.', '.', '.', '*'}, // * = point
+      {'.', '#', '.', '.', '.', '.', '.', '.', '.', '.'}, // * = point
       {'.', '#', '.', '.', '.', '.', '.', '.', '.', '.'}, // # = barrier
       {'.', '#', '.', '.', '.', '.', '.', '.', '.', '.'},
       {'.', '#', '.', '.', '.', '.', '.', '.', '.', '.'},
@@ -53,9 +54,23 @@ public class MazeGame {
     System.out.println("Moves: " + this.player.getNumberOfMoves());
   }
 
+  // TODO: implement try-again mechanism until random position is a '.'
+  // now it just skips placing points if location is not '.'
+  private void spawnPoints(int points) {
+    Random rand = new Random();
+    for (int i = 0; i < points; i++) {
+      int randomXPosition = rand.nextInt(maze.length);
+      int randomYPosition = rand.nextInt(maze[0].length);
+      if (maze[randomXPosition][randomYPosition] == '.') {
+        maze[randomXPosition][randomYPosition] = this.pointIcon;
+      }
+    }
+  }
+
   private void setUpMaze() {
     maze[this.player.getPlayerY()][this.player.getPlayerX()] = this.player.getPlayerIcon();
     maze[this.goalLocationX][this.goalLocationY] = this.goalIcon;
+    spawnPoints(3);
   }
 
   private void movePlayer(int x, int y) {
