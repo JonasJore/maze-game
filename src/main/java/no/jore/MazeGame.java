@@ -6,10 +6,12 @@ import java.util.Scanner;
 public class MazeGame {
   private final Scanner input;
   private boolean isGamePaused;
+  private boolean isGameOver;
 
   MazeGame() {
     input = new Scanner(System.in);
     isGamePaused = false;
+    isGameOver = false;
   }
 
   // TODO: implement multiple levels later
@@ -33,23 +35,30 @@ public class MazeGame {
   final char pointIcon = '*';
   Player player = new Player();
 
-  private boolean isGameOver() {
-    return this.player.getPlayerX() == this.goalLocationX
-        && this.player.getPlayerY() == this.goalLocationY
-        || isGamePaused;
+  private void isGameOver() { // TODO: simplify game over mechanic
+    if (this.player.getPlayerX() == this.goalLocationX
+        && this.player.getPlayerY() == this.goalLocationY) {
+      this.isGameOver = true;
+    }
   }
 
   private void setIsGamePaused(boolean b) { // TODO: better name for b
     this.isGamePaused = b;
   }
 
-  void printMaze() {
+  private void setIsGameOver(boolean b) { // TODO: better name for b
+    this.isGameOver = b;
+  }
+
+  private void printMaze() {
     for (int y = 0; y < 10; y++) {
       for (int x = 0; x < 10; x++) {
         System.out.print(maze[y][x]);
       }
       System.out.println();
     }
+  }
+  private void printGameInfo() {
     System.out.println("Points: " + this.player.getPoints());
     System.out.println("Moves: " + this.player.getNumberOfMoves());
   }
@@ -74,7 +83,8 @@ public class MazeGame {
   }
 
   private void movePlayer(int x, int y) {
-    if (maze[y][x] == '*') this.player.setPoints(this.player.getPoints() + 1);
+    if (maze[y][x] == '*')
+      this.player.setPoints(this.player.getPoints() + 1);
     if (maze[y][x] != '#') {
       this.player.setNumberOfMoves(this.player.getNumberOfMoves() + 1);
       maze[this.player.playerY][this.player.playerX] = '.';
@@ -82,6 +92,7 @@ public class MazeGame {
       this.player.setPlayerY(y);
       this.player.setPlayerX(x);
     }
+    isGameOver();
   }
 
   private void receivePlayerInput() {
@@ -119,7 +130,7 @@ public class MazeGame {
     }
   }
 
-  void displayPauseScreen() {
+  private void displayPauseScreen() {
     System.out.println("===============================================");
     System.out.println("Welcome to the maze game");
     System.out.println("Playing is rather simple:");
@@ -138,15 +149,38 @@ public class MazeGame {
     setIsGamePaused(false);
   }
 
+  private void displayGameOverScreen() {
+    System.out.println("===============================================");
+    System.out.println("GAME OVER");
+    System.out.println("You collected " + this.player.points + " points");
+    System.out.println("And you moved " + this.player.numberOfMoves + " times");
+    System.out.println();
+    System.out.println("Press `enter` to play again");
+    System.out.println("===============================================");
+  }
+
+  private void resetState() {
+    this.player.setPlayerX(5);
+    this.player.setPlayerY(5);
+    maze[2][2] = goalIcon;
+  }
+
   public void gameLoop() {
     this.setUpMaze();
     this.printMaze();
 
-    while (!isGameOver()) {
+    while (!isGameOver) {
       receivePlayerInput();
 
       printMaze();
+      printGameInfo();
     }
+
+    displayGameOverScreen();
+    input.nextLine();
+    setIsGameOver(false);
+    resetState();
+    gameLoop();
   }
 
 }
