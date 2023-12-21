@@ -3,10 +3,12 @@ package no.jore;
 import java.util.Scanner;
 
 public class MazeGame {
-  private Scanner input;
+  private final Scanner input;
+  private boolean isGamePaused;
 
   MazeGame() {
     input = new Scanner(System.in);
+    isGamePaused = false;
   }
 
   // TODO: implement multiple levels later
@@ -32,7 +34,12 @@ public class MazeGame {
 
   private boolean isGameOver() {
     return this.player.getPlayerX() == this.goalLocationX
-        && this.player.getPlayerY() == this.goalLocationY;
+        && this.player.getPlayerY() == this.goalLocationY
+        || isGamePaused;
+  }
+
+  private void setIsGamePaused(boolean b) { // TODO: better name for b
+    this.isGamePaused = b;
   }
 
   void printMaze() {
@@ -86,9 +93,34 @@ public class MazeGame {
           movePlayer(this.player.getPlayerX() + 1, this.player.getPlayerY());
         break;
       }
+      case 'p': {
+        setIsGamePaused(true);
+        displayPauseScreen();
+        break;
+      }
+      default: {
+        System.out.println("not valid input, press `p` to pause the game and get info on how to play");
+      }
     }
+  }
 
-    System.out.println("input: " + inputChar);
+  void displayPauseScreen() {
+    System.out.println("===============================================");
+    System.out.println("Welcome to the maze game");
+    System.out.println("Playing is rather simple:");
+    System.out.println("You control the `@` in the maze");
+    System.out.println("Controls:");
+    System.out.println("\t- Press `w` to go up");
+    System.out.println("\t- Press `s` to go down");
+    System.out.println("\t- Press `a` to go left");
+    System.out.println("\t- Press `d` to go right\n");
+    System.out.println("`.` means a free spot which is safe to go to");
+    System.out.println("`#` are barriers you cannot go through");
+    System.out.println("`*` are points you must collect in order to win");
+    System.out.println("===============================================");
+    input.nextLine();
+
+    setIsGamePaused(false);
   }
 
   public void gameLoop() {
@@ -100,7 +132,6 @@ public class MazeGame {
 
       printMaze();
     }
-
   }
 
 }
