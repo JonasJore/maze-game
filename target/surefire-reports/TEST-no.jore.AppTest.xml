@@ -12,7 +12,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="NO"/>
     <property name="sun.boot.library.path" value="/opt/homebrew/Cellar/openjdk/21/libexec/openjdk.jdk/Contents/Home/lib"/>
-    <property name="sun.java.command" value="/Users/jonasjore/code/maze-game/target/surefire/surefirebooter-20231221094821787_3.jar /Users/jonasjore/code/maze-game/target/surefire 2023-12-21T09-48-21_680-jvmRun1 surefire-20231221094821787_1tmp surefire_0-20231221094821787_2tmp"/>
+    <property name="sun.java.command" value="/Users/jonasjore/code/maze-game/target/surefire/surefirebooter-20231221095856758_3.jar /Users/jonasjore/code/maze-game/target/surefire 2023-12-21T09-58-56_694-jvmRun1 surefire-20231221095856758_1tmp surefire_0-20231221095856758_2tmp"/>
     <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="/Users/jonasjore/code/maze-game/target/test-classes:/Users/jonasjore/code/maze-game/target/classes:/Users/jonasjore/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar:"/>
@@ -29,7 +29,7 @@
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="apple.awt.application.name" value="ForkedBooter"/>
-    <property name="surefire.real.class.path" value="/Users/jonasjore/code/maze-game/target/surefire/surefirebooter-20231221094821787_3.jar"/>
+    <property name="surefire.real.class.path" value="/Users/jonasjore/code/maze-game/target/surefire/surefirebooter-20231221095856758_3.jar"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.runtime.version" value="21"/>
@@ -58,5 +58,5 @@
     <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="testApp" classname="no.jore.AppTest" time="0.002"/>
+  <testcase name="testApp" classname="no.jore.AppTest" time="0.001"/>
 </testsuite>

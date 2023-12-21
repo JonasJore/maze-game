@@ -1,4 +1,0 @@
-Manifest-Version: 1.0
-Main-Class: no.jore.App
-Class-Path: jline-3.24.1.jar
-
