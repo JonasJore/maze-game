@@ -35,10 +35,10 @@ public class MazeGame {
   final char pointIcon = '*';
   Player player = new Player();
 
-  private void isGameOver() { // TODO: simplify game over mechanic
-    if (this.player.getPlayerX() == this.goalLocationX
-        && this.player.getPlayerY() == this.goalLocationY) {
-      this.isGameOver = true;
+  private void isGameOver() { // TODO: simplify game-over mechanic
+    if (this.player.getPlayerX() == this.goalLocationX &&
+        this.player.getPlayerY() == this.goalLocationY) {
+      setIsGameOver(true);
     }
   }
 
@@ -58,6 +58,7 @@ public class MazeGame {
       System.out.println();
     }
   }
+
   private void printGameInfo() {
     System.out.println("Points: " + this.player.getPoints());
     System.out.println("Moves: " + this.player.getNumberOfMoves());
