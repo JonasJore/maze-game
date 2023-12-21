@@ -1,7 +1,12 @@
 package no.jore;
 
+import java.util.Scanner;
+
 public class MazeGame {
+  private Scanner input;
+
   MazeGame() {
+    input = new Scanner(System.in);
   }
 
   // TODO: implement multiple levels later
@@ -57,12 +62,42 @@ public class MazeGame {
     }
   }
 
+  private void receivePlayerInput() {
+    System.out.println("INPUT:");
+    char inputChar = input.nextLine().charAt(0);
+    switch (inputChar) {
+      case 'w': {
+        if (this.player.getPlayerY() - 1 != -1)
+          movePlayer(this.player.getPlayerX(), this.player.getPlayerY() - 1);
+        break;
+      }
+      case 's': {
+        if (this.player.getPlayerY() + 1 != 10)
+          movePlayer(this.player.getPlayerX(), this.player.getPlayerY() + 1);
+        break;
+      }
+      case 'a': {
+        if (this.player.getPlayerX() - 1 != -1)
+          movePlayer(this.player.getPlayerX() - 1, this.player.getPlayerY());
+        break;
+      }
+      case 'd': {
+        if (this.player.getPlayerX() + 1 != 10)
+          movePlayer(this.player.getPlayerX() + 1, this.player.getPlayerY());
+        break;
+      }
+    }
+
+    System.out.println("input: " + inputChar);
+  }
+
   public void gameLoop() {
     this.setUpMaze();
     this.printMaze();
 
-
     while (!isGameOver()) {
+      receivePlayerInput();
+
       printMaze();
     }
 
